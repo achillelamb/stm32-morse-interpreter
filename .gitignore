@@ -1,0 +1,12 @@
+/Debug/
+/Release/
+/Binaries/
+/Includes/
+/Core/Startup/
+/Drivers/
+*.ioc
+*.ld
+/.cproject
+/.project
+/.mxproject
+/.settings/
