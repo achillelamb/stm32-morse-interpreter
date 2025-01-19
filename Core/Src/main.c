@@ -174,10 +174,14 @@ void determine_input_morse_symbol() {
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
     if (GPIO_Pin == GPIO_PIN_13) { // Check if the interrupt was triggered by pin 13 (user button)
         if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13) == GPIO_PIN_SET) {
+            if (release_time > press_time)
+                return; // button release already happened!
             dbg("RELEASE\n\r");
             HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
             determine_input_morse_symbol();
         } else {
+            if (press_time > release_time)
+                return; // button press already happened!
             dbg("PRESS\n\r");
             HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
             press_time = HAL_GetTick();
